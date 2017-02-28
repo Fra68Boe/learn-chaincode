@@ -33,7 +33,7 @@ type SimpleChaincode struct {
 func main() {
 	err := shim.Start(new(SimpleChaincode))
 	if err != nil {
-		fmt.Printf("Error starting Simple chaincode: %s", err)
+		fmt.Printf("Error when starting Simple chaincode: %s", err)
 	}
 }
 
@@ -53,7 +53,7 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 
 // Invoke is our entry point to invoke a chaincode function
 func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
-	fmt.Println("invoke is running " + function)
+	fmt.Println("Invoke is running " + function)
 
 	// Handle different functions
 	if function == "init" {													//initialize the chaincode state, used as reset
@@ -61,20 +61,20 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 	} else if function == "write" {
 	    return t.write(stub, args)
 	}
-	fmt.Println("invoke did not find func: " + function)					//error
+	fmt.Println("Invoke did not find function: " + function)					//error
 
 	return nil, errors.New("Received unknown function invocation: " + function)
 }
 
 // Query is our entry point for queries
 func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
-	fmt.Println("query is running " + function)
+	fmt.Println("Query is running " + function)
 
 	// Handle different functions
 	if function == "read" {	   									//read a variable
 	    return t.read(stub, args)
 	}
-	fmt.Println("query did not find func: " + function)						//error
+	fmt.Println("Query did not find function: " + function)						//error
 
 	return nil, errors.New("Received unknown function query: " + function)
 }
@@ -83,7 +83,7 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
     var key, value string
 	var err error
-	fmt.Println("running write()")
+	fmt.Println("Running write()")
 	
 	if len(args) != 2 {
 	   return nil, errors.New("Incorrect number of arguments. Expecting 2. Name of the kex and value to set")
